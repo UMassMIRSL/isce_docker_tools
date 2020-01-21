@@ -19,6 +19,7 @@ The workflow is to be used in conjunction with a Docker container that has a sli
      - create a folder named "docker_new_runs". This is because the docker image was built using WORKDIR $HOME/uavsar_mlcproc/docker_new_runs. 
         This can be overridden by (i) rebuilding the Docker image with different value for WORKDIR; (ii) override on the command line with the option -w="$HOME/uavsar_mlcproc/XXX" (XXX is dir name)
      - copy the workflow .py scripts (in workflow_scripts dir on box) into "docker_new_runs" (i.e. 0_ann_dem.py, 1_iscestack.py, 2_resamp_pol.py, 3_uavsar_pp_mlc.py, run_ctrl.py)
+     - note: ensure that the python scripts have the correct permissions ... they need to be executable
      - You will need to create a file named .netrc in "docker_new_runs"
         "machine urs.earthdata.nasa.gov login <login> password <password>"
         - Windows doesn't easily let you make filenames starting with '.' but the below line works (run from a cmd window)
