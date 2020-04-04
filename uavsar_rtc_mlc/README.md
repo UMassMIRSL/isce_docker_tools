@@ -7,7 +7,7 @@ The workflow is to be used in conjunction with a Docker container that has a sli
 
 1. Please note that one must set the parameter simrun = 1 in run_ctrl.py if simulated NISAR data is to be used.
 
-2. The NISAR simulated data needs to be renamed to be properly read by IDT. A download + renaming tool with directions is provided in the uavsar_simulated_directory.
+2. The NISAR simulated data needs to be renamed to be properly read by our ISCE Docker Tool. A download + renaming tool with directions is provided in the uavsar_simulated_directory.
 
 ## Pre-requisites
 - an EARTHDATA account at [https://urs.earthdata.nasa.gov/](), used to download the digital elevation model files
