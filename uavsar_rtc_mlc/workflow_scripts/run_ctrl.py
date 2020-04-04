@@ -4,7 +4,8 @@
 import os, shutil, subprocess, time
 import numpy as np
 #---user specific input---#
-shpname = 'stoneville_west_ag' #the shapefile dir placed into new_runs containing shapefile with matching EPSG to the geotiffs (UTM zones) containing shapefiles named shpname.shp shpname.dbf etc
+#shpname = 'stoneville_west_ag' #the shapefile dir placed into new_runs containing shapefile with matching EPSG to the geotiffs (UTM zones) containing shapefiles named shpname.shp shpname.dbf etc
+simrun = 0 #set to 1 if using simulated NISAR data as input
 #---end user specify input---#
 
 #step0
@@ -45,8 +46,11 @@ print('There are %s projects (%s)' % (len(projects), projects))
 for num, val in enumerate(projects):
     prjfiles = [f for f in os.listdir() if f.startswith(val)]
     print('Project %s consists of %s flightlines' % (projects[num], len(prjfiles)))
-    prjdir = os.path.join(maindir, projects[num])
-    
+    if simrun == 1:
+        prjdir = os.path.join(maindir, projects[num]+'_sim')
+    else:
+        prjdir = os.path.join(maindir, projects[num])
+
     if not os.path.exists(prjdir):
         os.mkdir(prjdir)
         os.mkdir(os.path.join(prjdir,zerodir))
@@ -57,7 +61,6 @@ for num, val in enumerate(projects):
         shutil.copy(os.path.join(cwd, resampfn), os.path.join(prjdir, resampdir, resampfn))
         os.mkdir(os.path.join(prjdir,postprocdir))
         shutil.copy(os.path.join(cwd, postprocfn), os.path.join(prjdir, postprocdir, postprocfn))
-    
     
     for numd, vald in enumerate(prjfiles):
         shutil.move(os.path.join(cwd, vald), os.path.join(prjdir, zerodir, vald))
@@ -90,4 +93,3 @@ for num, val in enumerate(projects):
     print('3_postprocess took %s seconds' %(np.round(t4-t3,3)))
     print('Processing took %s seconds' %(np.round(t4-t0,3)))
     os.chdir(cwd)
-
