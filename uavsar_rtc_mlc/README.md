@@ -1,9 +1,3 @@
-# 4/4/20: The ISCE Docker Tools workflow scripts for UAVSAR MLC processing was updated to also work with the simulated NISAR MLC Data (https://uavsar.jpl.nasa.gov/cgi-bin/data.pl)
-
-1. Please note that one must set the parameter simrun = 1 in run_ctrl.py if simulated NISAR data is to be used.
-
-2. The NISAR simulated data needs to be renamed to be properly read by IDT. A download + renaming tool with directions is provided in the uavsar_simulated_directory.
-
 # ISCE Docker Tools: Automated Radiometric Terrain Correction and Image Coregistration of UAVSAR MLC DATA
 
 This workflow uses two or more UAVSAR MLC datasets as input to generate a co-registered stack of images that had been corrected for viewing geometry and terrain effects (gamma0).
