@@ -3,6 +3,12 @@
 This workflow uses two or more UAVSAR MLC datasets as input to generate a co-registered stack of images that had been corrected for viewing geometry and terrain effects (gamma0).
 The workflow is to be used in conjunction with a Docker container that has a slightly modified version of ISCE installed on it, to facilitate MLC processing. More details on ISCE are available at [https://github.com/isce-framework/]().
 
+## 4/4/20: The ISCE Docker Tools workflow scripts for UAVSAR MLC processing was updated to also work with the simulated NISAR MLC Data (https://uavsar.jpl.nasa.gov/cgi-bin/data.pl)
+
+1. Please note that one must set the parameter simrun = 1 in run_ctrl.py if simulated NISAR data is to be used.
+
+2. The NISAR simulated data needs to be renamed to be properly read by IDT. A download + renaming tool with directions is provided in the uavsar_simulated_directory.
+
 ## Pre-requisites
 - an EARTHDATA account at [https://urs.earthdata.nasa.gov/](), used to download the digital elevation model files
 - Docker. To install Docker on your system, follow directions at [https://docs.docker.com/](https://docs.docker.com/)
