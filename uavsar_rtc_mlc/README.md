@@ -1,4 +1,4 @@
-# 4/4/20: The ISCE Docker Tools workflow for UAVSAR MLC processing was updated to also work with the simulated NISAR MLC Data
+# 4/4/20: The ISCE Docker Tools workflow scripts for UAVSAR MLC processing was updated to also work with the simulated NISAR MLC Data
 
 1. Please note that one must set the parameter simrun = 1 in run_ctrl.py if simulated NISAR data is to be used.
 
