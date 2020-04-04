@@ -1,7 +1,8 @@
 # 4/4/20: The ISCE Docker Tools workflow for UAVSAR MLC processing was updated to also work with the simulated NISAR MLC Data
 
-(1) Please note that one must set the parameter simrun = 1 in run_ctrl.py if simulated NISAR data is to be used.
-(2) The NISAR simulated data needs to be renamed to be properly read by IDT. A download + renaming tool with directions is provided in the uavsar_simulated_directory.
+1. Please note that one must set the parameter simrun = 1 in run_ctrl.py if simulated NISAR data is to be used.
+
+2. The NISAR simulated data needs to be renamed to be properly read by IDT. A download + renaming tool with directions is provided in the uavsar_simulated_directory.
 
 # ISCE Docker Tools: Automated Radiometric Terrain Correction and Image Coregistration of UAVSAR MLC DATA
 
