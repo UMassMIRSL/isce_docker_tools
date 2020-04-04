@@ -7,9 +7,10 @@ from osgeo import gdal
 
 ####------User Set Params--------####
 dembuf = 0.1 #buffer DEM extent. Can be increased if ISCE indicates extent is too small.
-ftguess = 360   #Guess of UAVSAR flight time in seconds. Usually it is 6-10 minutes. Used if 'Stop Time of Acquisition' not provided in .ann in MLC .ann
-vel = '250'     #Airplane velocity in (m/s). UAVSAR usually between 200-250 m/s. Average speed may be noted as comment in .ann, but no guarantee for MLC .ann
+ftguess = 450   #Guess of UAVSAR flight time in seconds. Usually it is 6-10 minutes. Used if 'Stop Time of Acquisition' not provided in .ann in MLC .ann
+vel = '200'     #Airplane velocity in (m/s). UAVSAR usually between 200-250 m/s. Average speed may be noted as comment in .ann, but no guarantee for MLC .ann
                 #ftguess and vel are important in case ISCE throws a time mismatch error regarding orbital calculation
+
 ####------Set Params--------####
 cwd = os.getcwd()
 prjdir, zerodir = os.path.split(cwd)
@@ -131,7 +132,11 @@ for num, val in enumerate(new2proc):
         doac = xx.loc[xx['Name'] == 'Date of Acquisition']['Value'].tolist()
         dost = xx.loc[xx['Name'] == 'Stop Time of Acquisition']['Value'].tolist()
         pri = xx.loc[xx['Name'] == 'Average Pulse Repetition Interval']['Value'].tolist()
-        pri = np.float(pri[0])*12
+        
+        if prjdir.endswith('_sim'):
+            pri = np.float(pri[0])*2 #slc_mag.set_rows/mlc_mag.set_rows
+        else:
+            pri = np.float(pri[0])*12
 
         #Start/Stop time
         aa = pd.to_datetime(doac[0])
