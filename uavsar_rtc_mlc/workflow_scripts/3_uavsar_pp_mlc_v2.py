@@ -169,7 +169,7 @@ for num, val in enumerate(dirnm):
 
 ######----------Geocode--------------#####
 
-def genvrt(fni, cl, rw):
+def genvrt(fni, cl, rw, lo):
     if any(x in fni for x in sw) or fni.endswith('_mag.mlc'):
         tmp = """<VRTDataset rasterXSize='{cl}' rasterYSize='{rw}'>
     <VRTRasterBand band="1" dataType="Float32" subClass="VRTRawRasterBand">
@@ -177,7 +177,7 @@ def genvrt(fni, cl, rw):
         <ByteOrder>LSB</ByteOrder>
         <ImageOffset>0</ImageOffset>
         <PixelOffset>4</PixelOffset>
-        <LineOffset>13200</LineOffset>
+        <LineOffset>{lo}</LineOffset>
     </VRTRasterBand>
 </VRTDataset>"""
     elif any(x in fni for x in sw2):
@@ -187,11 +187,11 @@ def genvrt(fni, cl, rw):
         <ByteOrder>LSB</ByteOrder>
         <ImageOffset>0</ImageOffset>
         <PixelOffset>8</PixelOffset>
-        <LineOffset>26400</LineOffset>
+        <LineOffset>{lo*2}</LineOffset>
     </VRTRasterBand>
 </VRTDataset>"""
 
-    context = {"cl":cl, "rw":rw, "fni":fni}
+    context = {"cl":cl, "rw":rw, "fni":fni, "lo":lo}
     with open(fni+'.vrt', 'w') as f:
         f.write(tmp.format(**context))
 
@@ -224,7 +224,13 @@ if geocode == 1:
         epsgproj_out = 'EPSG:32'+str(northsouth)+str(zonenum)
         
         #get cols, rows from ann it is different from the original. I wrote into the last two lines of the .ann
-        cols = 3300
+        if prjdir.endswith('_sim'):
+            cols = 2640
+            lo = 10560
+        else:
+            cols = 3300
+            lo = 13200
+        
         with open(annfile, 'r') as ins:
             info = ins.read().splitlines()
         aa = info[-2].split(' ')
@@ -234,10 +240,10 @@ if geocode == 1:
             print('-----------Additional processing: Geocoding (only real)--------------')
             for numd, vald in enumerate(outfiles):
                 if not any(x in vald for x in sw2):
-                    genvrt(vald, cols, rows)
+                    genvrt(vald, cols, rows, lo)
                     print("-----------Geocoding: " + vald+"------------")
                     subprocess.call(['geocode_sk.py', '-i', vald+'.vrt', '-l', os.path.join(geomdir,'lat.rdr.vrt'), '-L', os.path.join(geomdir,'lon.rdr.vrt'),'-o', os.path.join(nd,vald[:-4]+'_geo.tif'), '-c', epsgproj_out, '-s', xyres_out, '-m', intmethod])
                 if vald.endswith('_mag.mlc'):
-                    genvrt(vald, cols, rows)
+                    genvrt(vald, cols, rows, lo)
                     print("-----------Geocoding: " + vald+"------------")
                     subprocess.call(['geocode_sk.py', '-i', vald+'.vrt', '-l', os.path.join(geomdir,'lat.rdr.vrt'), '-L', os.path.join(geomdir,'lon.rdr.vrt'),'-o', os.path.join(nd,vald[:-4]+'_geo.tif'), '-c', epsgproj_out, '-s', xyres_out, '-m', intmethod])
