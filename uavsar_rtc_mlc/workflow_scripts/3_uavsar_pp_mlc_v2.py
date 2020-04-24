@@ -206,7 +206,6 @@ if geocode == 1:
         annfile = val+'_CX_'+crosstalk+'.ann'
         swx = ('Peg Latitude', 'Peg Longitude')
         with open(annfile, 'r') as ins:
-            linelist = []
             for line in ins:
                 if line.startswith('Peg Latitude'):
                     lat = float(line.split('=')[1].strip())
@@ -223,13 +222,24 @@ if geocode == 1:
         zonenum = utmz[2]
         epsgproj_out = 'EPSG:32'+str(northsouth)+str(zonenum)
         
-        #get cols, rows from ann it is different from the original. I wrote into the last two lines of the .ann
-        if prjdir.endswith('_sim'):
-            cols = 2640
-            lo = 10560
-        else:
-            cols = 3300
-            lo = 13200
+        #the simulated data has different bandwidths ... ergo different cols, rows and line offsets
+        #an easy way to look up those values is from the merged/geom_master/simamp.rdr.vrt file
+        simampf = os.path.join(geomdir, 'simamp.rdr.vrt')
+        with open(simampf, 'r') as ins:
+            for line in ins:
+                print(line)
+                if 'rasterXSize' in line:
+                    cols = np.int(line.split('"')[1]) #should be same value as ncols above
+                if 'LineOffset' in line:
+                    bb = line.replace('<', '>')
+                    lo = np.int(bb.split('>')[2])
+        
+        #if prjdir.endswith('_sim'):
+        #    cols = 2640
+        #    lo = 10560
+        #else:
+        #    cols = 3300
+        #    lo = 13200
         
         with open(annfile, 'r') as ins:
             info = ins.read().splitlines()
