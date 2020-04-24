@@ -1,4 +1,4 @@
-# ISCE Docker Tools: Automated Radiometric Terrain Correction and Image Coregistration of UAVSAR MLC DATA (for now, 129A or other 20 MHZ products)
+# ISCE Docker Tools: Automated Radiometric Terrain Correction and Image Coregistration of UAVSAR MLC DATA (tested with 129A and 129B, should work for all of them)
 
 This workflow uses two or more UAVSAR MLC datasets as input to generate a co-registered stack of images that had been corrected for viewing geometry and terrain effects (gamma0).
 The workflow is to be used in conjunction with a Docker container that has a slightly modified version of ISCE installed on it, to facilitate MLC processing. More details on ISCE are available at [https://github.com/isce-framework/]().
