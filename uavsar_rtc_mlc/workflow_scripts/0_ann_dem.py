@@ -67,7 +67,7 @@ for num, val in enumerate(new2proc):
         annout = slcn[:-3]+'ann'    
         sw = ('Peg', 'Center Wavelength', 'Global Average Altitude', 'Global Average Terrain', 'Pulse Length', 'Average Pulse Repetition Interval',
         'Bandwidth', 'Approximate', 'mlc_pwr.set_rows', 'mlc_pwr.set_cols',
-        'mlc_pwr.row_addr', 'mlc_pwr.col_addr', 'mlc_pwr.row_mult',
+        'mlc_pwr.row_addr', 'mlc_pwr.col_addr', 'mlc_pwr.row_mult', 'slc_mag.row_mult', 'mlc_mag.row_mult',
         'mlc_pwr.col_mult', 'Date of Acquisition', 'Stop Time of Acquisition', 'Look Direction')
 
         with open(annin, 'r') as ins:
@@ -131,10 +131,14 @@ for num, val in enumerate(new2proc):
         mpcm = xx.loc[xx['Name'] == 'mlc_pwr.col_mult']['Value'].tolist()
         doac = xx.loc[xx['Name'] == 'Date of Acquisition']['Value'].tolist()
         dost = xx.loc[xx['Name'] == 'Stop Time of Acquisition']['Value'].tolist()
+        
         pri = xx.loc[xx['Name'] == 'Average Pulse Repetition Interval']['Value'].tolist()
+        smrm = xx.loc[xx['Name'] == 'slc_mag.row_mult']['Value'].tolist()
+        mmrm = xx.loc[xx['Name'] == 'mlc_mag.row_mult']['Value'].tolist()
+        mfact = np.int(np.float(mmrm[0])/np.float(smrm[0]))
         
         if prjdir.endswith('_sim'):
-            pri = np.float(pri[0])*2 #slc_mag.set_rows/mlc_mag.set_rows
+            pri = np.float(pri[0])*mfact 
         else:
             pri = np.float(pri[0])*12
 
