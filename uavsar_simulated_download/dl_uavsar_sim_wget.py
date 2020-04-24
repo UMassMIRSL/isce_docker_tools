@@ -84,7 +84,7 @@ for num, val in enumerate(annl):
             zp.write(val2, arcname=zn2)
 
 sw = ('.zip', '.py', '.txt')
-delfn = [f for f in os.listdir('.') if not f.endswith(sw)]
+delfn = [f for f in os.listdir('.') if not os.path.isdir(f) and not f.endswith(sw)]
 
 for num, val in enumerate(delfn):
     os.remove(val)
