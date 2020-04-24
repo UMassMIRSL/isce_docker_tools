@@ -70,18 +70,19 @@ elif checknewfn == 0:
 #note i rename the filenames to make the more like the standard mlc.zip so that the ISCE Docker Tool can read it
 annl = [f for f in os.listdir('.') if f.endswith('.ann')]
 
-for num, val in enumerate(annl):
-    aa = val.split('_')
-    bb = aa[0]+'_'+aa[1]+'_'+aa[2]+'_'+aa[3]+'_'+aa[4]
-    zfnl = [f for f in os.listdir('.') if f.startswith(bb)]
-    znx = val.split('_')
-    zn = znx[0]+'_'+znx[1]+'_'+znx[2]+'_'+znx[3]+'_'+znx[4]+'_'+znx[5]+'_'+znx[6]+'_'+znx[8].split('.')[0]+'_mlc.zip'
-    
-    with zipfile.ZipFile(zn, 'w') as zp:
-        for num2, val2 in enumerate(zfnl):
-            znx2 = val2.split('_')
-            zn2 = znx2[0]+'_'+znx2[1]+'_'+znx2[2]+'_'+znx2[3]+'_'+znx2[4]+'_'+znx2[5]+'_'+znx2[6]+'_'+znx2[8]
-            zp.write(val2, arcname=zn2)
+if len(annl) > 0:
+    for num, val in enumerate(annl):
+        aa = val.split('_')
+        bb = aa[0]+'_'+aa[1]+'_'+aa[2]+'_'+aa[3]+'_'+aa[4]
+        zfnl = [f for f in os.listdir('.') if f.startswith(bb)]
+        znx = val.split('_')
+        zn = znx[0]+'_'+znx[1]+'_'+znx[2]+'_'+znx[3]+'_'+znx[4]+'_'+znx[5]+'_'+znx[6]+'_'+znx[8].split('.')[0]+'_mlc.zip'
+        
+        with zipfile.ZipFile(zn, 'w') as zp:
+            for num2, val2 in enumerate(zfnl):
+                znx2 = val2.split('_')
+                zn2 = znx2[0]+'_'+znx2[1]+'_'+znx2[2]+'_'+znx2[3]+'_'+znx2[4]+'_'+znx2[5]+'_'+znx2[6]+'_'+znx2[8]
+                zp.write(val2, arcname=zn2)
 
 sw = ('.zip', '.py', '.txt')
 delfn = [f for f in os.listdir('.') if not os.path.isdir(f) and not f.endswith(sw)]
