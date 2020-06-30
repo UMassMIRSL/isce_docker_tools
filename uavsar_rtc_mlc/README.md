@@ -1,3 +1,5 @@
+<img src="IDT_uavsar.png" width="100%">
+
 # ISCE Docker Tools: Automated Radiometric Terrain Correction and Image Coregistration of UAVSAR MLC DATA
 
 This workflow uses two or more UAVSAR MLC datasets as input to generate a co-registered stack of images that had been corrected for viewing geometry and terrain effects (gamma0).
