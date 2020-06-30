@@ -1,4 +1,4 @@
-<img src="IDT_uavsar.png" width="100%">
+<img src="IDT_uavsar.PNG" width="100%">
 
 # ISCE Docker Tools: Automated Radiometric Terrain Correction and Image Coregistration of UAVSAR MLC DATA
 
