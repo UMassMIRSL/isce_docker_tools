@@ -18,7 +18,7 @@ The workflow is to be used in conjunction with a Docker container that has a sli
 
 ## Steps
 1. Install the docker image of ISCE (modified for RTC)
-  - download the Docker_Install folder from Box
+  - download the Docker_Install folder
   - unzip folder, cd into "Docker_Install" and run "docker build -t imgname ." where imgname is a custom name on the command line. This will install a Docker image on your system. 
   - "docker image ls", and note the IMAGE ID value (copy/paste)
   - alternatively if we've put the image on the Docker repository, you may use "docker pull MIRSL/"
@@ -27,7 +27,7 @@ The workflow is to be used in conjunction with a Docker container that has a sli
   - Pick a directory on the local machine where work is to be done (<localdir>). e.g.  $HOME/work and do the following:
      - create a folder named "docker_new_runs". This is because the docker image was built using WORKDIR $HOME/uavsar_mlcproc/docker_new_runs. 
         This can be overridden by (i) rebuilding the Docker image with different value for WORKDIR; (ii) override on the command line with the option -w="$HOME/uavsar_mlcproc/XXX" (XXX is dir name)
-     - copy the workflow .py scripts (in workflow_scripts dir on box) into "docker_new_runs" (i.e. 0_ann_dem.py, 1_iscestack.py, 2_resamp_pol.py, 3_uavsar_pp_mlc.py, run_ctrl.py)
+     - copy the workflow .py scripts (in workflow_scripts dir) into "docker_new_runs" (i.e. 0_ann_dem.py, 1_iscestack.py, 2_resamp_pol.py, 3_uavsar_pp_mlc.py, run_ctrl.py)
      - note: ensure that the python scripts have the correct permissions ... they need to be executable
      - You will need to create a file named .netrc in "docker_new_runs"
         "machine urs.earthdata.nasa.gov login <login> password <password>"
